@@ -61,3 +61,10 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+*.iml
+.idea/misc.xml
+.idea/uiDesigner.xml
+.idea/workspace.xml
+
+# Out directory
+/out
