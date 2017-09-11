@@ -68,3 +68,4 @@ $RECYCLE.BIN/
 
 # Out directory
 /out
+.idea/modules.xml
