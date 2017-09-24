@@ -10,6 +10,11 @@ import java.util.*;
 
 public class GameEngineImpl implements GameEngine{
 
+    public static final int NUM_OF_COINS = 2;
+    private int coins;
+    private GameEngineCallback gameEngineCallback;
+    private List<Player> players = new ArrayList<>();
+
 
     public GameEngineImpl(int coins){
         this.coins = coins;
@@ -42,11 +47,12 @@ public class GameEngineImpl implements GameEngine{
     public void flip(int flipDelay, int coinDelay) {
 
         // Get copy of number of coins so can keep reference of original number.
-        int coinsToFlip = coins;
+        int coinsToFlip = coins == 0 ? NUM_OF_COINS : coins;
 
         while(coins > 0){
 
             CoinImpl coin = new CoinImpl(Coin.Face.heads);
+            int currentCoin = (coins == 0 ? NUM_OF_COINS : coins) - coinsToFlip;
 
             // Generate random number of times to flip current coin.
             int flips = (int) (Math.random() * 100);
@@ -60,8 +66,10 @@ public class GameEngineImpl implements GameEngine{
                 coin.swapFace();
                 gameEngineCallback.coinFlip(coin.getCurrentFace(), this);
             }
-            gameEngineCallback.coinFlipOutcome(coins - coinsToFlip + 1, coin.getCurrentFace(), this);
+
+            gameEngineCallback.coinFlipOutcome(currentCoin, coin.getCurrentFace(), this);
             coinsToFlip--;
+
             try{
                 Thread.sleep(flipDelay);
             } catch(InterruptedException e){
@@ -69,6 +77,7 @@ public class GameEngineImpl implements GameEngine{
             }
 
         }
+        calculateResult();
 
     }
 
@@ -98,7 +107,7 @@ public class GameEngineImpl implements GameEngine{
 
     @Override
     public void removeGameEngineCallback(GameEngineCallback gameEngineCallback) {
-        // TODO: Implement removeGameEngineCallback() method.
+        // Method implementation not required for assignment one.
     }
 
     @Override
@@ -116,8 +125,9 @@ public class GameEngineImpl implements GameEngine{
     @Override
     public void setPlayerPoints(Player player, int totalPoints) {
 
-        // TODO: Add check that player exists.
-        player.setPoints(totalPoints);
+        if(players.contains(player)){
+            player.setPoints(totalPoints);
+        }
 
     }
 }
