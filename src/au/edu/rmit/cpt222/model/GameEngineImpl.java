@@ -102,7 +102,7 @@ public class GameEngineImpl implements GameEngine{
 
     @Override
     public void placeBet(Player player, Coin.Face face, int bet) throws InsufficientFundsException {
-        // TODO: Implement placeBet() method.
+        player.placeBet(face, bet);
     }
 
     @Override
