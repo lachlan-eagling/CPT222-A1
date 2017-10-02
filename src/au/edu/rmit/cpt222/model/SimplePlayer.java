@@ -7,12 +7,18 @@ import au.edu.rmit.cpt222.model.interfaces.Player;
 
 public class SimplePlayer implements Player{
 
+    String playerNumber;
+    String name;
+    int creditPoints;
+
     public SimplePlayer(){
 
     }
 
     public SimplePlayer(String playerNumber, String name, int creditPoints){
-
+        this.playerNumber = playerNumber;
+        this.name = name;
+        this.creditPoints = creditPoints;
     }
 
     @Override
