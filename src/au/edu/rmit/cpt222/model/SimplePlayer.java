@@ -7,10 +7,9 @@ import au.edu.rmit.cpt222.model.interfaces.Player;
 
 public class SimplePlayer implements Player{
 
-    private String playerNumber;
-    private String name;
-    private int creditPoints;
-    private Bet currentBet;
+    String playerNumber;
+    String name;
+    int creditPoints;
 
     public SimplePlayer(){
 
@@ -20,88 +19,55 @@ public class SimplePlayer implements Player{
         this.playerNumber = playerNumber;
         this.name = name;
         this.creditPoints = creditPoints;
-        this.currentBet = new Bet();
     }
 
     @Override
     public int getBet() {
-        return currentBet.points;
+        return 0;
     }
-
 
     @Override
     public Coin.Face getFacePick() {
-        return currentBet.face;
+        return null;
     }
 
     @Override
     public String getPlayerId() {
-        return playerNumber;
+        return null;
     }
 
     @Override
     public String getPlayerName() {
-        return name;
+        return null;
     }
 
     @Override
     public int getPoints() {
-        return creditPoints;
+        return 0;
     }
 
     @Override
     public GameEngine.GameStatus getResult() {
-        return currentBet.result;
+        return null;
     }
 
     @Override
     public void placeBet(Coin.Face facePick, int bet) throws InsufficientFundsException {
-        if(bet <= creditPoints){
-            this.currentBet = new Bet(facePick, bet);
-        } else{
-            throw new InsufficientFundsException();
-        }
+
     }
 
     @Override
     public void setPlayerName(String playerName) {
-        this.name = playerName;
+
     }
 
     @Override
     public void setPoints(int points) {
-        this.creditPoints = points;
+
     }
 
     @Override
     public void setResult(GameEngine.GameStatus status) {
-        this.currentBet.result = status;
-    }
-}
-
-class Bet{
-
-    Coin.Face face;
-    int points;
-    GameEngine.GameStatus result;
-
-     Bet(){
-        // Set default values.
-        this.face = Coin.Face.heads;
-        this.points = 0;
-        this.result = GameEngine.GameStatus.LOST;
-    }
-
-    Bet(Coin.Face face, int points){
-        if(face != null && points > 0){
-            this.face = face;
-            this.points = points;
-        } else{
-            throw new AssertionError("Invalid bet data...");
-        }
 
     }
-
-    Coin.Face getFace(){ return face; }
-
 }

@@ -12,9 +12,6 @@ import au.edu.rmit.cpt222.model.interfaces.GameEngine;
 import au.edu.rmit.cpt222.model.interfaces.GameEngine.GameStatus;
 import au.edu.rmit.cpt222.model.interfaces.GameEngineCallback;
 import au.edu.rmit.cpt222.model.interfaces.Player;
-import au.edu.rmit.cpt222.view.MainWindow;
-
-import javax.swing.*;
 
 /**
  * Test Harness for SADI Assignment 1
@@ -82,9 +79,6 @@ public class TestHarness {
 
 	public TestHarness() {
 
-		MainWindow window = new MainWindow();
-		window.displayWindow();
-
 		// basic tests
 		testAddPlayers();
 		testRemovePlayer();
@@ -102,9 +96,6 @@ public class TestHarness {
 		.println("\nThe test harness score is: "
 				+ this.score
 				+ "/ 8.5 marks. NOTE: 1.5 additional marks are allocated based on callback console outputs.");
-
-		// TODO: Remove this prior to submission, is only here to close GUI after executing text harness.
-		System.exit(0);
 	}
 
 	// helper method for handling unexpected exceptions
@@ -199,7 +190,6 @@ public class TestHarness {
 			.println("\nTest 06 - Test First Deal for The Gambler (1.5 marks)");
 
 			testFlipImpl(this.theGambler, Coin.Face.heads, 1.5f);
-			System.out.println("DONE");
 		} catch (Exception e) {
 			handleException(e, this.testNumber, 0);
 		}

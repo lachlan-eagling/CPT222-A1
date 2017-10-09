@@ -14,7 +14,6 @@ public class GameEngineImpl implements GameEngine{
     private int coins;
     private GameEngineCallback gameEngineCallback;
     private List<Player> players = new ArrayList<>();
-    private Player currentPlayer;
 
 
     public GameEngineImpl(int coins){
@@ -37,78 +36,48 @@ public class GameEngineImpl implements GameEngine{
 
     @Override
     public void calculateResult() {
-        switch(currentPlayer.getResult()){
-            case WON:
-                currentPlayer.setPoints(currentPlayer.getPoints() + currentPlayer.getBet());
-                break;
-            case LOST:
-                currentPlayer.setPoints(currentPlayer.getPoints() - currentPlayer.getBet());
-                break;
-            case DREW:
-                break;
+
+        for(Player player : players){
+            // TODO: Sort by scores and return winner.
         }
 
-        gameEngineCallback.gameResult(currentPlayer, currentPlayer.getResult(), this);
     }
 
     @Override
     public void flip(int flipDelay, int coinDelay) {
 
-        // Loop over players.
-        for(Player player : players){
-            currentPlayer = player;
-            Coin.Face betFace = player.getFacePick();
+        // Get copy of number of coins so can keep reference of original number.
+        int coinsToFlip = coins == 0 ? NUM_OF_COINS : coins;
 
-            // Get copy of number of coins so can keep reference of original number.
-            int coinsToFlip = coins == 0 ? NUM_OF_COINS : coins;
-            int wins = 0;
+        while(coins > 0){
 
-            while(coinsToFlip > 0){
+            CoinImpl coin = new CoinImpl(Coin.Face.heads);
+            int currentCoin = (coins == 0 ? NUM_OF_COINS : coins) - coinsToFlip;
 
-                CoinImpl coin = new CoinImpl(Coin.Face.heads);
-                int currentCoin = (coins == 0 ? NUM_OF_COINS : coins) - coinsToFlip;
+            // Generate random number of times to flip current coin.
+            int flips = (int) (Math.random() * 100);
 
-                // Generate random number of times to flip current coin.
-                int flips = (int) (Math.random() * 100);
-
-                for(int i = 0; i < flips - 1; i++){
-                    try{
-                        Thread.sleep(1);
-                    } catch(InterruptedException e){
-                        e.printStackTrace();
-                    }
-                    coin.swapFace();
-                    gameEngineCallback.coinFlip(coin.getCurrentFace(), this);
-                }
-//                System.out.println("CHECKPOINT...");
-
-                if(coin.getCurrentFace().equals(betFace)){
-                    wins++;
-                }
-
-                coinsToFlip--;
-
+            for(int i = 0; i < flips; i++){
                 try{
-                    Thread.sleep(flipDelay);
+                    Thread.sleep(coinDelay);
                 } catch(InterruptedException e){
                     e.printStackTrace();
                 }
-
-                gameEngineCallback.coinFlipOutcome(currentCoin, coin.getCurrentFace(), this);
-
+                coin.swapFace();
+                gameEngineCallback.coinFlip(coin.getCurrentFace(), this);
             }
 
-            if(wins > coinsToFlip){
-                player.setResult(GameStatus.WON);
-            } else if(wins < coinsToFlip){
-                player.setResult(GameStatus.LOST);
-            } else{
-                player.setResult(GameStatus.DREW);
-            }
+            gameEngineCallback.coinFlipOutcome(currentCoin, coin.getCurrentFace(), this);
+            coinsToFlip--;
 
-            calculateResult();
+            try{
+                Thread.sleep(flipDelay);
+            } catch(InterruptedException e){
+                e.printStackTrace();
+            }
 
         }
+        calculateResult();
 
     }
 
