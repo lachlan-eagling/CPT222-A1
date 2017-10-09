@@ -1,5 +1,6 @@
 package au.edu.rmit.cpt222.model;
 
+import au.edu.rmit.cpt222.model.controller.MainWindowController;
 import au.edu.rmit.cpt222.model.exceptions.InsufficientFundsException;
 import au.edu.rmit.cpt222.model.interfaces.Coin;
 import au.edu.rmit.cpt222.model.interfaces.GameEngine;
@@ -10,19 +11,21 @@ import java.util.*;
 
 public class GameEngineImpl implements GameEngine{
 
-    public static final int NUM_OF_COINS = 2;
+    private static final int NUM_OF_COINS = 2;
     private int coins;
     private GameEngineCallback gameEngineCallback;
     private List<Player> players = new ArrayList<>();
     private Player currentPlayer;
+    private MainWindowController controller;
 
 
     public GameEngineImpl(int coins){
+        controller = new MainWindowController();
         this.coins = coins;
     }
 
     public GameEngineImpl(){
-
+        controller = new MainWindowController();
     }
 
     @Override
@@ -69,11 +72,11 @@ public class GameEngineImpl implements GameEngine{
                 int currentCoin = (coins == 0 ? NUM_OF_COINS : coins) - coinsToFlip;
 
                 // Generate random number of times to flip current coin.
-                int flips = (int) (Math.random() * 100);
+                int flips = (int) (Math.random() * 15);
 
                 for(int i = 0; i < flips - 1; i++){
                     try{
-                        Thread.sleep(1);
+                        Thread.sleep(flipDelay);
                     } catch(InterruptedException e){
                         e.printStackTrace();
                     }
@@ -89,7 +92,7 @@ public class GameEngineImpl implements GameEngine{
                 coinsToFlip--;
 
                 try{
-                    Thread.sleep(flipDelay);
+                    Thread.sleep(coinDelay);
                 } catch(InterruptedException e){
                     e.printStackTrace();
                 }
@@ -160,5 +163,9 @@ public class GameEngineImpl implements GameEngine{
             player.setPoints(totalPoints);
         }
 
+    }
+
+    public MainWindowController getController() {
+        return controller;
     }
 }
