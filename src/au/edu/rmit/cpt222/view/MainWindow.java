@@ -55,6 +55,7 @@ public class MainWindow {
         frame.setSize(dimens);
         frame.setPreferredSize(dimens);
         frame.setLayout(layoutManager);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
     }
 
