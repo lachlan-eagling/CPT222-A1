@@ -15,9 +15,11 @@ public class MainWindowController {
     // TODO: Implement newGame event handler.
     // TODO: Implement addPlayer event handler.
     // TODO: Implement editPlayer event handler.
-    // TODO: Implement spinCoing eventHandler.
-    // TODO: Implement method to update coin label.
+    // TODO: Implement spinCoin eventHandler.
     // TODO: Implement method to update player details.
     // TODO: Implement method to update game outcome.
-    
+
+    public void updateCoinLabel(){
+        mainWindow.swapCoinFace();
+    }
 }
