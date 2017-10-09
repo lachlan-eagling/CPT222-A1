@@ -78,12 +78,10 @@ public class TestHarness {
 	private Player theCasual = new SimplePlayer("3", "The Casual",
 			DEFAULT_CREDIT_POINTS3);
 	private Collection<Player> players;
+	//private ResultCallback resultCallBack = new ResultCallback();
 	private ResultCallback resultCallBack = new ResultCallback();
 
 	public TestHarness() {
-
-		MainWindow window = new MainWindow();
-		window.displayWindow();
 
 		// basic tests
 		testAddPlayers();

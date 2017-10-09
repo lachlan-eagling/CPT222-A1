@@ -1,11 +1,15 @@
 package au.edu.rmit.cpt222.model.controller;
 
+import au.edu.rmit.cpt222.view.MainWindow;
 import sun.applet.Main;
 
 public class MainWindowController {
 
-    public MainWindowController(){
+    private MainWindow mainWindow;
 
+    public MainWindowController(){
+        mainWindow = new MainWindow();
+        mainWindow.displayWindow();
     }
 
     // TODO: Implement newGame event handler.
@@ -15,5 +19,5 @@ public class MainWindowController {
     // TODO: Implement method to update coin label.
     // TODO: Implement method to update player details.
     // TODO: Implement method to update game outcome.
-
+    
 }
