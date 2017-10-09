@@ -1,10 +1,8 @@
 package au.edu.rmit.cpt222.model;
 
-import au.edu.rmit.cpt222.model.controller.MainWindowController;
 import au.edu.rmit.cpt222.model.interfaces.Coin;
 import au.edu.rmit.cpt222.model.interfaces.GameEngine;
 import au.edu.rmit.cpt222.model.interfaces.Player;
-import au.edu.rmit.cpt222.test.harness.TestHarness;
 
 public class GUIGameEngineCallbackImpl extends GameEngineCallbackImpl {
 

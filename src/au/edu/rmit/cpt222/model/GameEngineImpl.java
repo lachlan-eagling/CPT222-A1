@@ -1,6 +1,6 @@
 package au.edu.rmit.cpt222.model;
 
-import au.edu.rmit.cpt222.model.controller.MainWindowController;
+import au.edu.rmit.cpt222.model.controller.GameControllerImpl;
 import au.edu.rmit.cpt222.model.exceptions.InsufficientFundsException;
 import au.edu.rmit.cpt222.model.interfaces.Coin;
 import au.edu.rmit.cpt222.model.interfaces.GameEngine;
@@ -16,16 +16,16 @@ public class GameEngineImpl implements GameEngine{
     private GameEngineCallback gameEngineCallback;
     private List<Player> players = new ArrayList<>();
     private Player currentPlayer;
-    private MainWindowController controller;
+    private GameControllerImpl controller;
 
 
     public GameEngineImpl(int coins){
-        controller = new MainWindowController();
+        controller = new GameControllerImpl(this);
         this.coins = coins;
     }
 
     public GameEngineImpl(){
-        controller = new MainWindowController();
+        controller = new GameControllerImpl(this);
     }
 
     @Override
@@ -165,7 +165,7 @@ public class GameEngineImpl implements GameEngine{
 
     }
 
-    public MainWindowController getController() {
+    public GameControllerImpl getController() {
         return controller;
     }
 }
