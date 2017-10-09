@@ -102,9 +102,6 @@ public class TestHarness {
 		.println("\nThe test harness score is: "
 				+ this.score
 				+ "/ 8.5 marks. NOTE: 1.5 additional marks are allocated based on callback console outputs.");
-
-		// TODO: Remove this prior to submission, is only here to close GUI after executing text harness.
-		System.exit(0);
 	}
 
 	// helper method for handling unexpected exceptions
