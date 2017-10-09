@@ -14,6 +14,7 @@ public class GameEngineImpl implements GameEngine{
     private int coins;
     private GameEngineCallback gameEngineCallback;
     private List<Player> players = new ArrayList<>();
+    private Player currentPlayer;
 
 
     public GameEngineImpl(int coins){
@@ -36,48 +37,78 @@ public class GameEngineImpl implements GameEngine{
 
     @Override
     public void calculateResult() {
-
-        for(Player player : players){
-            // TODO: Sort by scores and return winner.
+        switch(currentPlayer.getResult()){
+            case WON:
+                currentPlayer.setPoints(currentPlayer.getPoints() + currentPlayer.getBet());
+                break;
+            case LOST:
+                currentPlayer.setPoints(currentPlayer.getPoints() - currentPlayer.getBet());
+                break;
+            case DREW:
+                break;
         }
 
+        gameEngineCallback.gameResult(currentPlayer, currentPlayer.getResult(), this);
     }
 
     @Override
     public void flip(int flipDelay, int coinDelay) {
 
-        // Get copy of number of coins so can keep reference of original number.
-        int coinsToFlip = coins == 0 ? NUM_OF_COINS : coins;
+        // Loop over players.
+        for(Player player : players){
+            currentPlayer = player;
+            Coin.Face betFace = player.getFacePick();
 
-        while(coins > 0){
+            // Get copy of number of coins so can keep reference of original number.
+            int coinsToFlip = coins == 0 ? NUM_OF_COINS : coins;
+            int wins = 0;
 
-            CoinImpl coin = new CoinImpl(Coin.Face.heads);
-            int currentCoin = (coins == 0 ? NUM_OF_COINS : coins) - coinsToFlip;
+            while(coinsToFlip > 0){
 
-            // Generate random number of times to flip current coin.
-            int flips = (int) (Math.random() * 100);
+                CoinImpl coin = new CoinImpl(Coin.Face.heads);
+                int currentCoin = (coins == 0 ? NUM_OF_COINS : coins) - coinsToFlip;
 
-            for(int i = 0; i < flips; i++){
+                // Generate random number of times to flip current coin.
+                int flips = (int) (Math.random() * 100);
+
+                for(int i = 0; i < flips - 1; i++){
+                    try{
+                        Thread.sleep(1);
+                    } catch(InterruptedException e){
+                        e.printStackTrace();
+                    }
+                    coin.swapFace();
+                    gameEngineCallback.coinFlip(coin.getCurrentFace(), this);
+                }
+//                System.out.println("CHECKPOINT...");
+
+                if(coin.getCurrentFace().equals(betFace)){
+                    wins++;
+                }
+
+                coinsToFlip--;
+
                 try{
-                    Thread.sleep(coinDelay);
+                    Thread.sleep(flipDelay);
                 } catch(InterruptedException e){
                     e.printStackTrace();
                 }
-                coin.swapFace();
-                gameEngineCallback.coinFlip(coin.getCurrentFace(), this);
+
+                gameEngineCallback.coinFlipOutcome(currentCoin, coin.getCurrentFace(), this);
+
             }
 
-            gameEngineCallback.coinFlipOutcome(currentCoin, coin.getCurrentFace(), this);
-            coinsToFlip--;
-
-            try{
-                Thread.sleep(flipDelay);
-            } catch(InterruptedException e){
-                e.printStackTrace();
+            if(wins > coinsToFlip){
+                player.setResult(GameStatus.WON);
+            } else if(wins < coinsToFlip){
+                player.setResult(GameStatus.LOST);
+            } else{
+                player.setResult(GameStatus.DREW);
             }
+
+            calculateResult();
 
         }
-        calculateResult();
 
     }
 
