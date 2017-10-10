@@ -2,7 +2,6 @@ package au.edu.rmit.cpt222.test.harness;
 
 import java.util.Collection;
 
-import au.edu.rmit.cpt222.model.GameEngineCallbackImpl;
 import au.edu.rmit.cpt222.model.GameEngineImpl;
 import au.edu.rmit.cpt222.model.SimplePlayer;
 import au.edu.rmit.cpt222.model.exceptions.InsufficientFundsException;
@@ -12,9 +11,6 @@ import au.edu.rmit.cpt222.model.interfaces.GameEngine;
 import au.edu.rmit.cpt222.model.interfaces.GameEngine.GameStatus;
 import au.edu.rmit.cpt222.model.interfaces.GameEngineCallback;
 import au.edu.rmit.cpt222.model.interfaces.Player;
-import au.edu.rmit.cpt222.view.MainWindow;
-
-import javax.swing.*;
 
 /**
  * Test Harness for SADI Assignment 1

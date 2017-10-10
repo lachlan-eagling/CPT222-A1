@@ -3,17 +3,17 @@ package au.edu.rmit.cpt222.model.controller;
 import au.edu.rmit.cpt222.model.interfaces.GameController;
 import au.edu.rmit.cpt222.model.interfaces.GameEngine;
 import au.edu.rmit.cpt222.model.interfaces.Player;
-import au.edu.rmit.cpt222.view.MainWindow;
+import au.edu.rmit.cpt222.view.GameWindow;
 
 public class GameControllerImpl implements GameController{
 
-    private MainWindow mainWindow;
+    private GameWindow gameWindow;
     private GameEngine engine;
 
     public GameControllerImpl(GameEngine engine){
         this.engine = engine;
-        mainWindow = new MainWindow();
-        mainWindow.displayWindow();
+        gameWindow = new GameWindow();
+        gameWindow.displayWindow();
     }
 
     @Override
@@ -53,7 +53,7 @@ public class GameControllerImpl implements GameController{
     }
 
     public void updateCoinLabel(){
-        mainWindow.swapCoinFace();
+        gameWindow.swapCoinFace();
     }
 
     @Override

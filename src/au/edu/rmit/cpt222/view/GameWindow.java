@@ -3,7 +3,7 @@ package au.edu.rmit.cpt222.view;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainWindow {
+public class GameWindow {
 
     private static final String LABEL_HEADS = "Heads";
     private static final String LABEL_TAILS = "Tails";
@@ -33,7 +33,7 @@ public class MainWindow {
     // Coin components
     private JLabel coinLabel;
 
-    public MainWindow(){
+    public GameWindow(){
         setupWindowAndComponents();
     }
 
