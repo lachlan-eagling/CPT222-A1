@@ -4,6 +4,7 @@ import au.edu.rmit.cpt222.model.exceptions.InsufficientFundsException;
 import au.edu.rmit.cpt222.model.interfaces.Coin;
 import au.edu.rmit.cpt222.model.interfaces.GameEngine;
 import au.edu.rmit.cpt222.model.interfaces.Player;
+import static org.assertj.core.api.Assertions.*;
 
 public class SimplePlayer implements Player{
 
@@ -56,15 +57,18 @@ public class SimplePlayer implements Player{
 
     @Override
     public void placeBet(Coin.Face facePick, int bet) throws InsufficientFundsException {
+
         if(bet <= creditPoints){
             this.currentBet = new Bet(facePick, bet);
         } else{
             throw new InsufficientFundsException();
         }
+
     }
 
     @Override
     public void setPlayerName(String playerName) {
+        assertThat(playerName).isNotBlank();
         this.name = playerName;
     }
 
@@ -87,18 +91,17 @@ class Bet{
 
      Bet(){
         // Set default values.
-        this.face = Coin.Face.heads;
+        //this.face = Coin.Face.heads;
         this.points = 0;
         this.result = GameEngine.GameStatus.LOST;
     }
 
     Bet(Coin.Face face, int points){
-        if(face != null && points > 0){
-            this.face = face;
-            this.points = points;
-        } else{
-            throw new AssertionError("Invalid bet data...");
-        }
+
+        assertThat(face).isNotNull();
+        assertThat(points).isGreaterThan(0);
+        this.face = face;
+        this.points = points;
 
     }
 
