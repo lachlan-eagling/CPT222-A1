@@ -6,10 +6,8 @@ import au.edu.rmit.cpt222.model.interfaces.Player;
 import au.edu.rmit.cpt222.view.AddPlayerDialog;
 import au.edu.rmit.cpt222.view.GameWindow;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.EventListener;
 
 public class GameControllerImpl implements GameController{
 
