@@ -6,6 +6,8 @@ import au.edu.rmit.cpt222.model.interfaces.Coin;
 import au.edu.rmit.cpt222.model.interfaces.GameEngine;
 import au.edu.rmit.cpt222.model.interfaces.GameEngineCallback;
 import au.edu.rmit.cpt222.model.interfaces.Player;
+import static org.assertj.core.api.Assertions.*;
+
 
 import java.util.*;
 
@@ -20,6 +22,7 @@ public class GameEngineImpl implements GameEngine{
 
 
     public GameEngineImpl(int coins){
+        assertThat(coins).isGreaterThanOrEqualTo(2);
         controller = new GameControllerImpl(this);
         this.coins = coins;
     }
@@ -56,6 +59,9 @@ public class GameEngineImpl implements GameEngine{
 
     @Override
     public void flip(int flipDelay, int coinDelay) {
+
+        assertThat(flipDelay).isGreaterThanOrEqualTo(0);
+        assertThat(coinDelay).isGreaterThanOrEqualTo(0);
 
         // Loop over players.
         for(Player player : players){
