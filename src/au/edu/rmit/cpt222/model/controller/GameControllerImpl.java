@@ -3,7 +3,13 @@ package au.edu.rmit.cpt222.model.controller;
 import au.edu.rmit.cpt222.model.interfaces.GameController;
 import au.edu.rmit.cpt222.model.interfaces.GameEngine;
 import au.edu.rmit.cpt222.model.interfaces.Player;
+import au.edu.rmit.cpt222.view.AddPlayerDialog;
 import au.edu.rmit.cpt222.view.GameWindow;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.EventListener;
 
 public class GameControllerImpl implements GameController{
 
@@ -12,7 +18,7 @@ public class GameControllerImpl implements GameController{
 
     public GameControllerImpl(GameEngine engine){
         this.engine = engine;
-        gameWindow = new GameWindow();
+        gameWindow = new GameWindow(this);
         gameWindow.displayWindow();
     }
 
@@ -23,7 +29,13 @@ public class GameControllerImpl implements GameController{
 
     @Override
     public Player addPlayer() {
-        // TODO: Implement addPlayer event handler.
+        AddPlayerDialog addPlayerDialog = new AddPlayerDialog(gameWindow.getWindowContentFrame());
+        addPlayerDialog.setVisible(true);
+        Player _player = addPlayerDialog.getAddPlayerResult();
+        if(_player != null){
+            engine.addPlayer(addPlayerDialog.getAddPlayerResult());
+            return _player;
+        }
         return null;
     }
 
@@ -64,5 +76,13 @@ public class GameControllerImpl implements GameController{
     @Override
     public void displayError() {
         // TODO: Implement method to display error dialog for exceptions.
+    }
+}
+
+class AddPlayerListener implements ActionListener{
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }

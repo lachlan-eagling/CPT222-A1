@@ -1,12 +1,18 @@
 package au.edu.rmit.cpt222.view;
 
+import au.edu.rmit.cpt222.model.interfaces.GameController;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GameWindow {
+public class GameWindow{
 
     private static final String LABEL_HEADS = "Heads";
     private static final String LABEL_TAILS = "Tails";
+
+    private GameController controller;
 
     // Declare window components
     private JFrame frame;
@@ -33,7 +39,8 @@ public class GameWindow {
     // Coin components
     private JLabel coinLabel;
 
-    public GameWindow(){
+    public GameWindow(GameController controller){
+        this.controller = controller;
         setupWindowAndComponents();
     }
 
@@ -91,6 +98,13 @@ public class GameWindow {
         buttonContainer.add(newGameButton, BorderLayout.PAGE_END);
         buttonContainer.add(addPlayerButton, BorderLayout.PAGE_END);
         buttonContainer.add(spinCoinButton, BorderLayout.PAGE_END);
+
+        addPlayerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.addPlayer();
+            }
+        });
     }
 
     private void setupCoinView(){
@@ -109,6 +123,10 @@ public class GameWindow {
     public void swapCoinFace(){
         String currentFace = coinLabel.getText();
         coinLabel.setText(currentFace.equalsIgnoreCase(LABEL_HEADS) ? LABEL_TAILS : LABEL_HEADS);
+    }
+
+    public Frame getWindowContentFrame(){
+        return this.frame;
     }
 
 }
