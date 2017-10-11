@@ -22,12 +22,12 @@ public class GameWindow{
 
     // Menu Components
     private JMenuBar menuBar;
-
     private JMenu gameMenu;
     private JMenuItem newGameMenuItem;
     private JMenuItem playerMenuItem;
     private JMenuItem addPlayerMenuItem;
     private JMenuItem editPlayerMenuItem;
+    private JMenuItem viewGameHistoryMenuItem;
 
     // Button components.
     private JPanel buttonContainer;
@@ -70,16 +70,29 @@ public class GameWindow{
 
         menuBar = new JMenuBar();
         gameMenu = new JMenu("Game");
+
         newGameMenuItem = new JMenuItem("New Game");
+
         playerMenuItem = new JMenu("Player...");
         addPlayerMenuItem = new JMenuItem("Add Player");
         editPlayerMenuItem = new JMenuItem("Edit Player");
 
+        viewGameHistoryMenuItem = new JMenuItem("Game History");
+
         container.add(menuBar, BorderLayout.PAGE_START);
         menuBar.add(gameMenu);
-        gameMenu.add(newGameMenuItem);
-        gameMenu.add(playerMenuItem);
 
+        gameMenu.add(newGameMenuItem);
+
+        gameMenu.add(viewGameHistoryMenuItem);
+        viewGameHistoryMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.showGameHistory();
+            }
+        });
+
+        gameMenu.add(playerMenuItem);
         playerMenuItem.add(addPlayerMenuItem);
         playerMenuItem.add(editPlayerMenuItem);
     }

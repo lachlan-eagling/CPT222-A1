@@ -1,13 +1,18 @@
 package au.edu.rmit.cpt222.model.controller;
 
+import au.edu.rmit.cpt222.model.Game;
 import au.edu.rmit.cpt222.model.interfaces.GameController;
 import au.edu.rmit.cpt222.model.interfaces.GameEngine;
+import au.edu.rmit.cpt222.model.interfaces.GameHistory;
 import au.edu.rmit.cpt222.model.interfaces.Player;
 import au.edu.rmit.cpt222.view.AddPlayerDialog;
+import au.edu.rmit.cpt222.view.GameHistoryWindow;
 import au.edu.rmit.cpt222.view.GameWindow;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class GameControllerImpl implements GameController{
 
@@ -69,6 +74,18 @@ public class GameControllerImpl implements GameController{
     @Override
     public void showGameHistory() {
         // TODO: Implement method to display game history.
+        ArrayList<Game> games = new ArrayList<>();
+        if(engine instanceof GameHistory){
+            GameHistory historyEngine = (GameHistory) engine;
+            games.addAll(historyEngine.getAllGames());
+        }
+
+        GameHistoryWindow gameHistoryWindow = new GameHistoryWindow(games);
+
+        // Test output to console
+        for(Game game : games){
+            System.out.println(game.toString());
+        }
     }
 
     @Override

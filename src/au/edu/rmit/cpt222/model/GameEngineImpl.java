@@ -2,16 +2,14 @@ package au.edu.rmit.cpt222.model;
 
 import au.edu.rmit.cpt222.model.controller.GameControllerImpl;
 import au.edu.rmit.cpt222.model.exceptions.InsufficientFundsException;
-import au.edu.rmit.cpt222.model.interfaces.Coin;
-import au.edu.rmit.cpt222.model.interfaces.GameEngine;
-import au.edu.rmit.cpt222.model.interfaces.GameEngineCallback;
-import au.edu.rmit.cpt222.model.interfaces.Player;
+import au.edu.rmit.cpt222.model.interfaces.*;
+
 import static org.assertj.core.api.Assertions.*;
 
 
 import java.util.*;
 
-public class GameEngineImpl implements GameEngine{
+public class GameEngineImpl implements GameEngine, GameHistory{
 
     private static final int NUM_OF_COINS = 2;
     private int coins;
@@ -19,6 +17,8 @@ public class GameEngineImpl implements GameEngine{
     private List<Player> players = new ArrayList<>();
     private Player currentPlayer;
     private GameControllerImpl controller;
+
+    Collection<Game> gameHistory = new ArrayList<>();
 
 
     public GameEngineImpl(int coins){
@@ -115,6 +115,7 @@ public class GameEngineImpl implements GameEngine{
                 player.setResult(GameStatus.DREW);
             }
 
+            addGameToHistory(new Game(player, betFace, player.getBet(), player.getResult()));
             calculateResult();
 
         }
@@ -173,5 +174,15 @@ public class GameEngineImpl implements GameEngine{
 
     public GameControllerImpl getController() {
         return controller;
+    }
+
+    @Override
+    public void addGameToHistory(Game game) {
+        gameHistory.add(game);
+    }
+
+    @Override
+    public Collection<Game> getAllGames() {
+        return gameHistory;
     }
 }
