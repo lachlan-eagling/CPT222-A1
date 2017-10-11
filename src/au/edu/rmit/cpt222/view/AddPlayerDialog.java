@@ -4,23 +4,15 @@ import au.edu.rmit.cpt222.model.SimplePlayer;
 import au.edu.rmit.cpt222.model.interfaces.Player;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AddPlayerDialog extends JDialog {
 
-    private JLabel lblPlayerNumber;
-    private JLabel lblName;
-    private JLabel lblCreditPoints;
-
     private JTextField playerNumber;
     private JTextField playerName;
     private JTextField creditPoints;
-
-    private JButton btnOk;
-    private JButton btnCancel;
 
     private Player player;
 
@@ -31,45 +23,43 @@ public class AddPlayerDialog extends JDialog {
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
 
-        lblPlayerNumber = new JLabel("Player Number: ");
+        JLabel lblPlayerNumber = new JLabel("Player Number: ");
         constraints.gridx = 0;
         constraints.gridy = 0;
+        constraints.gridwidth = 1;
         inputPanel.add(lblPlayerNumber, constraints);
-
-        lblName = new JLabel("Name: ");
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        inputPanel.add(lblName, constraints);
-
-        lblCreditPoints = new JLabel("Credit Points: ");
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        constraints.gridwidth = 3;
-        constraints.gridheight = 3;
-        inputPanel.add(lblName, constraints);
 
         playerNumber = new JTextField(20);
         constraints.gridx = 1;
         constraints.gridy = 0;
-        constraints.gridwidth = 3;
-        constraints.gridheight = 3;
+        constraints.gridwidth = 2;
         inputPanel.add(playerNumber, constraints);
+
+        JLabel lblName = new JLabel("Name: ");
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        constraints.gridwidth = 1;
+        inputPanel.add(lblName, constraints);
 
         playerName = new JTextField(20);
         constraints.gridx = 1;
         constraints.gridy = 1;
-        constraints.gridwidth = 3;
-        constraints.gridheight = 3;
+        constraints.gridwidth = 2;
         inputPanel.add(playerName, constraints);
+
+        JLabel lblCreditPoints = new JLabel("Credit Points: ");
+        constraints.gridx = 0;
+        constraints.gridy = 2;
+        constraints.gridwidth = 1;
+        inputPanel.add(lblCreditPoints, constraints);
 
         creditPoints = new JTextField(20);
         constraints.gridx = 1;
         constraints.gridy = 2;
-        constraints.gridwidth = 3;
-        constraints.gridheight = 3;
+        constraints.gridwidth = 2;
         inputPanel.add(creditPoints, constraints);
 
-        btnOk = new JButton("OK");
+        JButton btnOk = new JButton("OK");
         btnOk.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,7 +71,7 @@ public class AddPlayerDialog extends JDialog {
             }
         });
 
-        btnCancel = new JButton("Cancel");
+        JButton btnCancel = new JButton("Cancel");
         btnCancel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
