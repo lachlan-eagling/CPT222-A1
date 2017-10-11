@@ -9,6 +9,7 @@ import au.edu.rmit.cpt222.view.AddPlayerDialog;
 import au.edu.rmit.cpt222.view.GameHistoryWindow;
 import au.edu.rmit.cpt222.view.GameWindow;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -88,8 +89,10 @@ public class GameControllerImpl implements GameController{
     }
 
     @Override
-    public void displayError() {
-        // TODO: Implement method to display error dialog for exceptions.
+    public void displayError(Exception exception) {
+        String error = exception.getMessage();
+        String title = exception.getClass().getSimpleName();
+        JOptionPane.showMessageDialog(gameWindow.getWindowContentFrame(), error, title, JOptionPane.ERROR_MESSAGE);
     }
 }
 

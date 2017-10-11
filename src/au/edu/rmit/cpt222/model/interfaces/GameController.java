@@ -13,5 +13,5 @@ public interface GameController {
     void updateCoinLabel();
 
     void showGameHistory();
-    void displayError();
+    void displayError(Exception error);
 }
