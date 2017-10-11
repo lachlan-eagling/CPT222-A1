@@ -1,4 +1,4 @@
-package au.edu.rmit.cpt222.model.controller;
+package au.edu.rmit.cpt222.controller;
 
 import au.edu.rmit.cpt222.model.Game;
 import au.edu.rmit.cpt222.model.interfaces.GameController;
@@ -12,7 +12,6 @@ import au.edu.rmit.cpt222.view.GameWindow;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class GameControllerImpl implements GameController{
 
