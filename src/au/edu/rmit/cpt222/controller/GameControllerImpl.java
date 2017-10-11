@@ -95,11 +95,3 @@ public class GameControllerImpl implements GameController{
         JOptionPane.showMessageDialog(gameWindow.getWindowContentFrame(), error, title, JOptionPane.ERROR_MESSAGE);
     }
 }
-
-class AddPlayerListener implements ActionListener{
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
-}
