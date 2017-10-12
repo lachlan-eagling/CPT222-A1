@@ -2,7 +2,6 @@ package au.edu.rmit.cpt222.model.interfaces;
 
 public interface GameController {
 
-    void newGame();
     Player addPlayer();
     void editPlayer();
     void addBet();

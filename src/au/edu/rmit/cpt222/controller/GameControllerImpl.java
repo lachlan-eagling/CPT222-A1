@@ -30,11 +30,6 @@ public class GameControllerImpl implements GameController{
     }
 
     @Override
-    public void newGame() {
-        // TODO: Implement newGame event handler.
-    }
-
-    @Override
     public Player addPlayer() {
         AddPlayerDialog addPlayerDialog = new AddPlayerDialog(gameWindow.getWindowContentFrame());
         addPlayerDialog.setVisible(true);
