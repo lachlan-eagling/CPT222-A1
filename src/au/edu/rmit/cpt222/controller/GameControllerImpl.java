@@ -1,5 +1,6 @@
 package au.edu.rmit.cpt222.controller;
 
+import au.edu.rmit.cpt222.model.Bet;
 import au.edu.rmit.cpt222.model.Game;
 import au.edu.rmit.cpt222.model.interfaces.GameController;
 import au.edu.rmit.cpt222.model.interfaces.GameEngine;
@@ -8,6 +9,7 @@ import au.edu.rmit.cpt222.model.interfaces.Player;
 import au.edu.rmit.cpt222.view.AddPlayerDialog;
 import au.edu.rmit.cpt222.view.GameHistoryWindow;
 import au.edu.rmit.cpt222.view.GameWindow;
+import au.edu.rmit.cpt222.view.PlaceBetDialog;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +20,8 @@ public class GameControllerImpl implements GameController{
 
     private GameWindow gameWindow;
     private GameEngine engine;
+
+    private Bet bet;
 
     public GameControllerImpl(GameEngine engine){
         this.engine = engine;
@@ -49,7 +53,9 @@ public class GameControllerImpl implements GameController{
 
     @Override
     public void addBet() {
-        // TODO: Implement method to add a new bet.
+        PlaceBetDialog placeBetDialog = new PlaceBetDialog(gameWindow.getWindowContentFrame());
+        placeBetDialog.setVisible(true);
+        bet = placeBetDialog.getNewBetResult();
     }
 
     @Override
@@ -59,7 +65,7 @@ public class GameControllerImpl implements GameController{
 
     @Override
     public void updatePlayer() {
-        // TODO: Implement method to update player details.
+        // TODO: Implement method to update player details. This should update the current player details in UI.
     }
 
     @Override
@@ -73,7 +79,6 @@ public class GameControllerImpl implements GameController{
 
     @Override
     public void showGameHistory() {
-        // TODO: Implement method to display game history.
         ArrayList<Game> games = new ArrayList<>();
         if(engine instanceof GameHistory){
             GameHistory historyEngine = (GameHistory) engine;

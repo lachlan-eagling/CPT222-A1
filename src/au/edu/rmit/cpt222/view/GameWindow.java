@@ -23,7 +23,7 @@ public class GameWindow{
     // Menu Components
     private JMenuBar menuBar;
     private JMenu gameMenu;
-    private JMenuItem newGameMenuItem;
+    private JMenuItem placeBetMenuItem;
     private JMenuItem playerMenuItem;
     private JMenuItem addPlayerMenuItem;
     private JMenuItem editPlayerMenuItem;
@@ -32,7 +32,7 @@ public class GameWindow{
     // Button components.
     private JPanel buttonContainer;
     private LayoutManager buttonLayout;
-    private JButton newGameButton;
+    private JButton placeBetButton;
     private JButton addPlayerButton;
     private JButton spinCoinButton;
 
@@ -71,7 +71,7 @@ public class GameWindow{
         menuBar = new JMenuBar();
         gameMenu = new JMenu("Game");
 
-        newGameMenuItem = new JMenuItem("New Game");
+        placeBetMenuItem = new JMenuItem("Place Bet");
 
         playerMenuItem = new JMenu("Player...");
         addPlayerMenuItem = new JMenuItem("Add Player");
@@ -82,7 +82,13 @@ public class GameWindow{
         container.add(menuBar, BorderLayout.PAGE_START);
         menuBar.add(gameMenu);
 
-        gameMenu.add(newGameMenuItem);
+        gameMenu.add(placeBetMenuItem);
+        placeBetMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.addBet();
+            }
+        });
 
         gameMenu.add(viewGameHistoryMenuItem);
         viewGameHistoryMenuItem.addActionListener(new ActionListener() {
@@ -104,13 +110,20 @@ public class GameWindow{
         buttonContainer.setLayout(buttonLayout);
         container.add(buttonContainer, BorderLayout.PAGE_END);
 
-        newGameButton = new JButton("New Game");
+        placeBetButton = new JButton("Place Bet");
         addPlayerButton = new JButton("Add Player");
         spinCoinButton = new JButton("Spin Coin");
 
-        buttonContainer.add(newGameButton, BorderLayout.PAGE_END);
+        buttonContainer.add(placeBetButton, BorderLayout.PAGE_END);
         buttonContainer.add(addPlayerButton, BorderLayout.PAGE_END);
         buttonContainer.add(spinCoinButton, BorderLayout.PAGE_END);
+
+        placeBetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.addBet();
+            }
+        });
 
         addPlayerButton.addActionListener(new ActionListener() {
             @Override

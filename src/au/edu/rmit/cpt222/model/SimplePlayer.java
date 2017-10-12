@@ -83,28 +83,3 @@ public class SimplePlayer implements Player{
     }
 }
 
-class Bet{
-
-    Coin.Face face;
-    int points;
-    GameEngine.GameStatus result;
-
-     Bet(){
-        // Set default values.
-        //this.face = Coin.Face.heads;
-        this.points = 0;
-        this.result = GameEngine.GameStatus.LOST;
-    }
-
-    Bet(Coin.Face face, int points){
-
-        assertThat(face).isNotNull();
-        assertThat(points).isGreaterThan(0);
-        this.face = face;
-        this.points = points;
-
-    }
-
-    Coin.Face getFace(){ return face; }
-
-}
