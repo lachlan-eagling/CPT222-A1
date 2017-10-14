@@ -38,7 +38,7 @@ public class Bet{
 
 
 
-    Coin.Face getFace(){ return face; }
+    public Coin.Face getFace(){ return face; }
 
     public int getPoints() {
         return points;
