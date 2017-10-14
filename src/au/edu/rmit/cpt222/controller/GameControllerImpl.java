@@ -1,7 +1,10 @@
 package au.edu.rmit.cpt222.controller;
 
 import au.edu.rmit.cpt222.model.Bet;
+import au.edu.rmit.cpt222.model.GUIGameEngineCallbackImpl;
 import au.edu.rmit.cpt222.model.Game;
+import au.edu.rmit.cpt222.model.GameEngineImpl;
+import au.edu.rmit.cpt222.model.exceptions.InsufficientFundsException;
 import au.edu.rmit.cpt222.model.interfaces.*;
 import au.edu.rmit.cpt222.view.AddPlayerDialog;
 import au.edu.rmit.cpt222.view.GameHistoryWindow;
@@ -17,13 +20,26 @@ public class GameControllerImpl implements GameController{
 
     private GameWindow gameWindow;
     private GameEngine engine;
+    private static GameController controller;
+    private Player player;
 
     private Bet bet;
 
-    public GameControllerImpl(GameEngine engine){
-        this.engine = engine;
+    public final static int DEFAULT_FLIP_DELAY = 300;
+    public final static int DEFAULT_COIN_DELAY = 500;
+
+    public GameControllerImpl(){
+        this.engine = new GameEngineImpl();
+        engine.addGameEngineCallback(new GUIGameEngineCallbackImpl());
+        GameEngineImpl _engine = (GameEngineImpl) engine;
+        _engine.setController(this);
+
         gameWindow = new GameWindow(this);
         gameWindow.displayWindow();
+    }
+
+    public static void main(String[] args) {
+        new GameControllerImpl();
     }
 
     @Override
@@ -33,6 +49,7 @@ public class GameControllerImpl implements GameController{
         Player _player = addPlayerDialog.getAddPlayerResult();
         if(_player != null){
             engine.addPlayer(addPlayerDialog.getAddPlayerResult());
+            this.player = _player;
             return _player;
         }
         return null;
@@ -48,11 +65,23 @@ public class GameControllerImpl implements GameController{
         PlaceBetDialog placeBetDialog = new PlaceBetDialog(gameWindow.getWindowContentFrame());
         placeBetDialog.setVisible(true);
         bet = placeBetDialog.getNewBetResult();
+        try{
+            engine.getPlayer(player.getPlayerId()).placeBet(bet.getFace(), bet.getPoints());
+        } catch (InsufficientFundsException e){
+            displayError(e);
+        }
     }
 
     @Override
     public void spinCoin() {
         // TODO: Implement spinCoin eventHandler.
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                engine.flip(DEFAULT_FLIP_DELAY, DEFAULT_COIN_DELAY);
+            }
+        });
+        thread.run();
     }
 
     @Override

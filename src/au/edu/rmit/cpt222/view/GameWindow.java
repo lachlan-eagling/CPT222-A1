@@ -150,6 +150,13 @@ public class GameWindow{
                 controller.addPlayer();
             }
         });
+
+        spinCoinButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.spinCoin();
+            }
+        });
     }
 
     private void setupCoinView(){
