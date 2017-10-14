@@ -27,6 +27,8 @@ public class GUIGameEngineCallbackImpl extends GameEngineCallbackImpl {
     @Override
     public void gameResult(Player player, GameEngine.GameStatus result, GameEngine engine) {
         super.gameResult(player, result, engine);
+        GameEngineImpl _engine = (GameEngineImpl) engine;
+        _engine.getController().updateGameOutcome(player, result);
     }
 
     public void clearResults() {

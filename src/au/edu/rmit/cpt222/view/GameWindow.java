@@ -39,6 +39,22 @@ public class GameWindow{
     // Coin components
     private JLabel coinLabel;
 
+    // Game outcome components
+    private JPanel gameOutcomeContainer;
+    private LayoutManager gameOutcomeLayout;
+
+    private JLabel lineBreak;
+
+    private JLabel lblGameResult;
+    private JLabel lblBetCoin;
+    private JLabel lblBetAmmount;
+    private JLabel lblUpdatedPoints;
+
+    private JLabel gameResultData;
+    private JLabel betCoinData;
+    private JLabel betAmountData;
+    private JLabel updatedPointsData;
+
     public GameWindow(GameController controller){
         this.controller = controller;
         setupWindowAndComponents();
@@ -49,6 +65,7 @@ public class GameWindow{
         setupMenu();
         setupButtons();
         setupCoinView();
+        setupGameOutcomeView();
     }
 
     private void setUpWindow(){
@@ -141,6 +158,48 @@ public class GameWindow{
         container.add(coinLabel, BorderLayout.CENTER);
     }
 
+    private void setupGameOutcomeView(){
+        Font font = new Font("Courier", Font.BOLD, 12);
+
+        gameOutcomeContainer = new JPanel();
+        gameOutcomeLayout = new BoxLayout(gameOutcomeContainer, BoxLayout.Y_AXIS);
+        gameOutcomeContainer.setLayout(gameOutcomeLayout);
+        container.add(gameOutcomeContainer, BorderLayout.WEST);
+
+        lineBreak = new JLabel("\n");
+
+        lblGameResult = new JLabel("Result: ");
+        lblBetCoin = new JLabel("Bet Coin: ");
+        lblBetAmmount = new JLabel("Bet Credits: ");
+        lblUpdatedPoints = new JLabel("Updated Credits: ");
+
+        lblGameResult.setFont(font);
+        lblBetCoin.setFont(font);
+        lblBetAmmount.setFont(font);
+        lblUpdatedPoints.setFont(font);
+
+        gameResultData = new JLabel();
+        betCoinData = new JLabel();
+        betAmountData = new JLabel();
+        updatedPointsData = new JLabel();
+
+        gameOutcomeContainer.add(lblGameResult);
+        gameOutcomeContainer.add(gameResultData);
+        gameOutcomeContainer.add(lineBreak);
+
+        gameOutcomeContainer.add(lblBetCoin);
+        gameOutcomeContainer.add(betCoinData);
+        gameOutcomeContainer.add(lineBreak);
+
+        gameOutcomeContainer.add(lblBetAmmount);
+        gameOutcomeContainer.add(betAmountData);
+        gameOutcomeContainer.add(lineBreak);
+
+        gameOutcomeContainer.add(lblUpdatedPoints);
+        gameOutcomeContainer.add(updatedPointsData);
+        gameOutcomeContainer.add(lineBreak);
+    }
+
     public void displayWindow(){
         frame.pack();
         frame.setVisible(true);
@@ -153,6 +212,14 @@ public class GameWindow{
 
     public Frame getWindowContentFrame(){
         return this.frame;
+    }
+
+    public void updateGameResult(String gameResult, String betCoin, String betCredits, String upddatedCredits){
+        gameResultData.setText(gameResult);
+        betCoinData.setText(betCoin);
+        betAmountData.setText(betCredits);
+        updatedPointsData.setText(upddatedCredits);
+        gameOutcomeContainer.repaint();
     }
 
 }

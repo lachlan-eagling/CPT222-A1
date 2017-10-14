@@ -40,4 +40,15 @@ public class Bet{
 
     Coin.Face getFace(){ return face; }
 
+    public int getPoints() {
+        return points;
+    }
+
+    public int getCoinsToFlip() {
+        return coinsToFlip;
+    }
+
+    public GameEngine.GameStatus getResult() {
+        return result;
+    }
 }

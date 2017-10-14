@@ -8,7 +8,7 @@ public interface GameController {
 
     void spinCoin();
     void updatePlayer();
-    void updateGameOutcome();
+    void updateGameOutcome(Player player, GameEngine.GameStatus result);
     void updateCoinLabel();
 
     void showGameHistory();

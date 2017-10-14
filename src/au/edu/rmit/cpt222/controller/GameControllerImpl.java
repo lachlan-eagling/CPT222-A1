@@ -2,10 +2,7 @@ package au.edu.rmit.cpt222.controller;
 
 import au.edu.rmit.cpt222.model.Bet;
 import au.edu.rmit.cpt222.model.Game;
-import au.edu.rmit.cpt222.model.interfaces.GameController;
-import au.edu.rmit.cpt222.model.interfaces.GameEngine;
-import au.edu.rmit.cpt222.model.interfaces.GameHistory;
-import au.edu.rmit.cpt222.model.interfaces.Player;
+import au.edu.rmit.cpt222.model.interfaces.*;
 import au.edu.rmit.cpt222.view.AddPlayerDialog;
 import au.edu.rmit.cpt222.view.GameHistoryWindow;
 import au.edu.rmit.cpt222.view.GameWindow;
@@ -64,8 +61,12 @@ public class GameControllerImpl implements GameController{
     }
 
     @Override
-    public void updateGameOutcome() {
-        // TODO: Implement method to update game outcome.
+    public void updateGameOutcome(Player player, GameEngine.GameStatus result) {
+        String gameResult = result.toString();
+        String betCoin = player.getFacePick().toString();
+        String betCredits = String.valueOf(bet.getPoints());
+        String updatedCredits = String.valueOf(player.getPoints());
+        gameWindow.updateGameResult(gameResult, betCoin, betCredits, updatedCredits);
     }
 
     public void updateCoinLabel(){
