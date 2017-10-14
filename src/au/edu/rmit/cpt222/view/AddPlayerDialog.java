@@ -12,7 +12,7 @@ public class AddPlayerDialog extends JDialog {
 
     private JTextField playerNumber;
     private JTextField playerName;
-    private JTextField creditPoints;
+    private JSpinner creditPoints;
 
     private Player player;
 
@@ -53,7 +53,7 @@ public class AddPlayerDialog extends JDialog {
         constraints.gridwidth = 1;
         inputPanel.add(lblCreditPoints, constraints);
 
-        creditPoints = new JTextField(20);
+        creditPoints = new JSpinner(new SpinnerNumberModel());
         constraints.gridx = 1;
         constraints.gridy = 2;
         constraints.gridwidth = 2;
@@ -65,7 +65,7 @@ public class AddPlayerDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 String _playerNumber = playerNumber.getText();
                 String _playerName = playerName.getText();
-                Integer _creditPoints = Integer.parseInt(creditPoints.getText());
+                int _creditPoints = (int) creditPoints.getValue();
                 player = new SimplePlayer(_playerNumber, _playerName, _creditPoints);
                 dispose();
             }
