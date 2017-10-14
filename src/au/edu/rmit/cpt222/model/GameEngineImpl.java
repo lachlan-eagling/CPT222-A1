@@ -16,19 +16,19 @@ public class GameEngineImpl implements GameEngine, GameHistory{
     private GameEngineCallback gameEngineCallback;
     private List<Player> players = new ArrayList<>();
     private Player currentPlayer;
-    private GameControllerImpl controller;
+    private GameController controller;
 
     Collection<Game> gameHistory = new ArrayList<>();
 
 
     public GameEngineImpl(int coins){
         assertThat(coins).isGreaterThanOrEqualTo(2);
-        controller = new GameControllerImpl(this);
+        //controller = new GameControllerImpl();
         this.coins = coins;
     }
 
     public GameEngineImpl(){
-        controller = new GameControllerImpl(this);
+        //controller = new GameControllerImpl();
     }
 
     @Override
@@ -172,7 +172,11 @@ public class GameEngineImpl implements GameEngine, GameHistory{
 
     }
 
-    public GameControllerImpl getController() {
+    public void setController(GameController controller){
+        this.controller = controller;
+    }
+
+    public GameController getController() {
         return controller;
     }
 
