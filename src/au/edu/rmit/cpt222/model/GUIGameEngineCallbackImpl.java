@@ -14,14 +14,16 @@ public class GUIGameEngineCallbackImpl extends GameEngineCallbackImpl {
 
     @Override
     public void coinFlip(Coin.Face coinFace, GameEngine engine) {
+        super.coinFlip(coinFace, engine);
         GameEngineImpl _engine = (GameEngineImpl) engine;
         _engine.getController().updateCoinLabel();
-        super.coinFlip(coinFace, engine);
     }
 
     @Override
     public void coinFlipOutcome(int coinNumber, Coin.Face coinFace, GameEngine engine) {
         super.coinFlipOutcome(coinNumber, coinFace, engine);
+        GameEngineImpl _engine = (GameEngineImpl) engine;
+        _engine.getController().updateLastCoinFlip(coinFace);
     }
 
     @Override

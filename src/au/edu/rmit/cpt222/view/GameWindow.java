@@ -1,5 +1,6 @@
 package au.edu.rmit.cpt222.view;
 
+import au.edu.rmit.cpt222.model.interfaces.Coin;
 import au.edu.rmit.cpt222.model.interfaces.GameController;
 
 import javax.swing.*;
@@ -44,6 +45,7 @@ public class GameWindow{
     private LayoutManager gameOutcomeLayout;
 
     private JLabel lineBreak;
+    private JLabel lblLastCoinFlip;
 
     private JLabel lblGameResult;
     private JLabel lblBetCoin;
@@ -168,6 +170,9 @@ public class GameWindow{
 
         lineBreak = new JLabel("\n");
 
+
+        lblLastCoinFlip = new JLabel("Last Coin Result: ");
+
         lblGameResult = new JLabel("Result: ");
         lblBetCoin = new JLabel("Bet Coin: ");
         lblBetAmmount = new JLabel("Bet Credits: ");
@@ -198,6 +203,9 @@ public class GameWindow{
         gameOutcomeContainer.add(lblUpdatedPoints);
         gameOutcomeContainer.add(updatedPointsData);
         gameOutcomeContainer.add(lineBreak);
+
+
+        gameOutcomeContainer.add(lblLastCoinFlip);
     }
 
     public void displayWindow(){
@@ -220,6 +228,11 @@ public class GameWindow{
         betAmountData.setText(betCredits);
         updatedPointsData.setText(upddatedCredits);
         gameOutcomeContainer.repaint();
+    }
+
+    public void updateCoinOutcome(Coin.Face face){
+        String newText = lblLastCoinFlip.getText() + face.toString();
+        lblLastCoinFlip.setText(newText);
     }
 
 }

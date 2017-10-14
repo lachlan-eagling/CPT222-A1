@@ -61,6 +61,11 @@ public class GameControllerImpl implements GameController{
     }
 
     @Override
+    public void updateLastCoinFlip(Coin.Face coinFace) {
+        gameWindow.updateCoinOutcome(coinFace);
+    }
+
+    @Override
     public void updateGameOutcome(Player player, GameEngine.GameStatus result) {
         String gameResult = result.toString();
         String betCoin = player.getFacePick().toString();

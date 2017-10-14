@@ -10,6 +10,7 @@ public interface GameController {
     void updatePlayer();
     void updateGameOutcome(Player player, GameEngine.GameStatus result);
     void updateCoinLabel();
+    void updateLastCoinFlip(Coin.Face coinFace);
 
     void showGameHistory();
     void displayError(Exception error);
