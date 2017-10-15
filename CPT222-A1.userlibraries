@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="org.assertj:assertj-core:3.8.0" />
+</eclipse-userlibraries>
+

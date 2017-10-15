@@ -72,3 +72,4 @@ $RECYCLE.BIN/
 .idea/vcs.xml
 .idea/vcs.xml
 *.xml___jb_tmp___
+/bin/
