@@ -1,6 +1,5 @@
 package au.edu.rmit.cpt222.model;
 
-import au.edu.rmit.cpt222.controller.GameControllerImpl;
 import au.edu.rmit.cpt222.model.exceptions.InsufficientFundsException;
 import au.edu.rmit.cpt222.model.interfaces.*;
 

@@ -1,4 +1,4 @@
-package au.edu.rmit.cpt222.controller;
+package au.edu.rmit.cpt222.driver;
 
 import au.edu.rmit.cpt222.model.Bet;
 import au.edu.rmit.cpt222.model.GUIGameEngineCallbackImpl;
@@ -14,7 +14,7 @@ import au.edu.rmit.cpt222.view.PlaceBetDialog;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class GameControllerImpl implements GameController{
+public class Ass1Driver implements GameController{
 
     private GameWindow gameWindow;
     private GameEngine engine;
@@ -25,7 +25,7 @@ public class GameControllerImpl implements GameController{
     private final static int DEFAULT_FLIP_DELAY = 300;
     private final static int DEFAULT_COIN_DELAY = 500;
 
-    private GameControllerImpl(){
+    private Ass1Driver(){
 
         // Add GameEngine and GameEngineCallback
         this.engine = new GameEngineImpl();
@@ -41,7 +41,7 @@ public class GameControllerImpl implements GameController{
     public static void main(String[] args) {
 
         // Initialise and start game window.
-        new GameControllerImpl();
+        new Ass1Driver();
 
     }
 
