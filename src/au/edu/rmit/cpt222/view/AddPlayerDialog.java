@@ -23,6 +23,7 @@ public class AddPlayerDialog extends JDialog {
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
 
+        // Add components and set constraints for each.
         JLabel lblPlayerNumber = new JLabel("Player Number: ");
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -59,6 +60,7 @@ public class AddPlayerDialog extends JDialog {
         constraints.gridwidth = 2;
         inputPanel.add(creditPoints, constraints);
 
+        // Add buttons and listeners.
         JButton btnOk = new JButton("OK");
         btnOk.addActionListener(new ActionListener() {
             @Override
@@ -86,6 +88,7 @@ public class AddPlayerDialog extends JDialog {
         getContentPane().add(inputPanel, BorderLayout.CENTER);
         getContentPane().add(buttonPanel, BorderLayout.PAGE_END);
 
+        // Display window.
         pack();
         setResizable(false);
         setLocationRelativeTo(parent);
