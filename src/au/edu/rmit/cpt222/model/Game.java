@@ -4,6 +4,10 @@ import au.edu.rmit.cpt222.model.interfaces.Coin;
 import au.edu.rmit.cpt222.model.interfaces.GameEngine;
 import au.edu.rmit.cpt222.model.interfaces.Player;
 
+/*
+* Class to encapsulate game history.
+* */
+
 public class Game {
 
     private Player player;
