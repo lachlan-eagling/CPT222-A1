@@ -3,7 +3,6 @@ package au.edu.rmit.cpt222.model;
 import au.edu.rmit.cpt222.model.interfaces.Coin;
 import au.edu.rmit.cpt222.model.interfaces.GameEngine;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class Bet{
 
@@ -21,8 +20,6 @@ public class Bet{
 
     public Bet(Coin.Face face, int points){
 
-        assertThat(face).isNotNull();
-        assertThat(points).isGreaterThan(0);
         this.face = face;
         this.points = points;
 

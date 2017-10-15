@@ -4,7 +4,6 @@ import au.edu.rmit.cpt222.controller.GameControllerImpl;
 import au.edu.rmit.cpt222.model.exceptions.InsufficientFundsException;
 import au.edu.rmit.cpt222.model.interfaces.*;
 
-import static org.assertj.core.api.Assertions.*;
 
 
 import java.util.*;
@@ -23,7 +22,7 @@ public class GameEngineImpl implements GameEngine, GameHistory{
 
 
     public GameEngineImpl(int coins){
-        assertThat(coins).isGreaterThanOrEqualTo(2);
+
         //controller = new GameControllerImpl();
         this.coins = coins;
     }
@@ -82,8 +81,7 @@ public class GameEngineImpl implements GameEngine, GameHistory{
     @Override
     public void flip(int flipDelay, int coinDelay) {
 
-        assertThat(flipDelay).isGreaterThanOrEqualTo(0);
-        assertThat(coinDelay).isGreaterThanOrEqualTo(0);
+
 
         // Loop over players.
         for(Player player : players){
