@@ -101,12 +101,19 @@ public class GameControllerImpl implements GameController{
         new Thread(){
             @Override
             public void run(){
-                GameEngineImpl _engine;
-                if(engine instanceof GameEngineImpl){
-                    _engine = (GameEngineImpl) engine;
-                    _engine.setNumOfCoins(bet.getCoinsToFlip());
-                }
-                engine.flip(DEFAULT_FLIP_DELAY, DEFAULT_COIN_DELAY);
+            	
+            	// Check that bet has been placed to avoid NullPointerException.
+            	if(bet != null) {
+            		GameEngineImpl _engine;
+                    if(engine instanceof GameEngineImpl){
+                        _engine = (GameEngineImpl) engine;
+                        _engine.setNumOfCoins(bet.getCoinsToFlip());
+                    }
+                    engine.flip(DEFAULT_FLIP_DELAY, DEFAULT_COIN_DELAY);
+            	} else {
+            		displayError(new IllegalStateException("No bets, place a bet first."));
+            	}
+                
             }
         }.start();
 
