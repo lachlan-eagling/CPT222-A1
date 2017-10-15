@@ -59,20 +59,26 @@ public class GameWindow{
     private JLabel updatedPointsData;
 
     public GameWindow(GameController controller){
+
         this.controller = controller;
         setupWindowAndComponents();
+
     }
 
     private void setupWindowAndComponents(){
+
+        // Split window creation into separate methods to improve cohesion of class.
         setUpWindow();
         setupMenu();
         setupButtons();
         setupCoinView();
         setupGameOutcomeView();
+
     }
 
     private void setUpWindow(){
 
+        // Setup window components amd set params.
         frame = new JFrame("CPT222 - Assignment One");
         dimens = new Dimension();
         layoutManager = new BorderLayout();
@@ -88,6 +94,7 @@ public class GameWindow{
 
     private void setupMenu(){
 
+        // Initialise and setup all menu components.
         menuBar = new JMenuBar();
         gameMenu = new JMenu("Game");
 
@@ -125,6 +132,7 @@ public class GameWindow{
 
     private void setupButtons(){
 
+        // Initialise and setup all button components.
         buttonContainer = new JPanel();
         buttonLayout = new FlowLayout();
         buttonContainer.setLayout(buttonLayout);
@@ -165,17 +173,23 @@ public class GameWindow{
                 controller.editPlayer();
             }
         });
+
     }
 
     private void setupCoinView(){
+
+        // Displays coin face for flip in UI.
         coinLabel = new JLabel();
         coinLabel.setText(LABEL_HEADS);
         coinLabel.setHorizontalAlignment(SwingConstants.CENTER);
         coinLabel.setFont(coinLabel.getFont().deriveFont(64.0f));
         container.add(coinLabel, BorderLayout.CENTER);
+
     }
 
     private void setupGameOutcomeView(){
+
+        // Initialise and setup all game outcome data components.
         Font font = new Font("Courier", Font.BOLD, 12);
 
         gameOutcomeContainer = new JPanel();
@@ -223,34 +237,47 @@ public class GameWindow{
 
         gameOutcomeContainer.add(lblLastCoinFlip);
         gameOutcomeContainer.add(lastCoinFlip);
+
     }
 
     public void displayWindow(){
+
+        //Show window.
         frame.pack();
         frame.setVisible(true);
+
     }
 
     public void swapCoinFace(){
+
+        // Change current coin face in coinLabel.
         String currentFace = coinLabel.getText();
         coinLabel.setText(currentFace.equalsIgnoreCase(LABEL_HEADS) ? LABEL_TAILS : LABEL_HEADS);
         gameOutcomeContainer.repaint();
+
     }
 
     public Frame getWindowContentFrame(){
         return this.frame;
     }
 
-    public void updateGameResult(String gameResult, String betCoin, String betCredits, String upddatedCredits){
+    public void updateGameResult(String gameResult, String betCoin, String betCredits, String updatedCredits){
+
+        // Post game result to screen.
         gameResultData.setText(gameResult);
         betCoinData.setText(betCoin);
         betAmountData.setText(betCredits);
-        updatedPointsData.setText(upddatedCredits);
+        updatedPointsData.setText(updatedCredits);
         gameOutcomeContainer.repaint();
+
     }
 
     public void updateCoinOutcome(int coinNumber, Coin.Face face){
+
+        // Update intermediate flip outcomes to UI.
         String out = String.format("%s (Coin: %d)", face.toString(), coinNumber);
         lastCoinFlip.setText(out);
+        
     }
 
 }
