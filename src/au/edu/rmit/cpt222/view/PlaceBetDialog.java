@@ -34,7 +34,7 @@ public class PlaceBetDialog extends JDialog{
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
 
-        // Add coin face lables and radio buttons.
+        // Add coin face labels and radio buttons.
         coinButtonGroup = new ButtonGroup();
         headsRadioButton = new JRadioButton();
         tailsRadioButton = new JRadioButton();
@@ -121,11 +121,13 @@ public class PlaceBetDialog extends JDialog{
         getContentPane().add(inputPanel, BorderLayout.CENTER);
         getContentPane().add(buttonPanel, BorderLayout.PAGE_END);
 
+        // Display window.
         pack();
         setResizable(false);
         setLocationRelativeTo(parent);
     }
 
+    // Allows controller to retrieve input.
     public Bet getNewBetResult(){
         return bet;
     }
