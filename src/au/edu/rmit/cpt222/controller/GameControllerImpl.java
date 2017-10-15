@@ -62,14 +62,19 @@ public class GameControllerImpl implements GameController{
 
     @Override
     public void addBet() {
-        PlaceBetDialog placeBetDialog = new PlaceBetDialog(gameWindow.getWindowContentFrame());
-        placeBetDialog.setVisible(true);
-        bet = placeBetDialog.getNewBetResult();
-        try{
-            engine.getPlayer(player.getPlayerId()).placeBet(bet.getFace(), bet.getPoints());
-        } catch (InsufficientFundsException e){
-            displayError(e);
+        PlaceBetDialog placeBetDialog = new PlaceBetDialog(gameWindow.getWindowContentFrame());;
+        if(player != null){
+            placeBetDialog.setVisible(true);
+            bet = placeBetDialog.getNewBetResult();
+            try{
+                engine.getPlayer(player.getPlayerId()).placeBet(bet.getFace(), bet.getPoints());
+            } catch (InsufficientFundsException e){
+                displayError(e);
+            }
+        } else{
+            displayError(new IllegalStateException("No players added, please add a player first."));
         }
+
     }
 
     @Override
