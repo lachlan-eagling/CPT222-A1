@@ -82,10 +82,23 @@ public class GameControllerImpl implements GameController{
 
     @Override
     public void spinCoin() {
-        // TODO: Implement spinCoin eventHandler.
-        Thread thread = new Thread(new Runnable() {
+//        // TODO: Implement spinCoin eventHandler.
+//        Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                GameEngineImpl _engine;
+//                if(engine instanceof GameEngineImpl){
+//                    _engine = (GameEngineImpl) engine;
+//                    _engine.setNumOfCoins(bet.getCoinsToFlip());
+//                }
+//                engine.flip(DEFAULT_FLIP_DELAY, DEFAULT_COIN_DELAY);
+//            }
+//        });
+//        thread.run();
+
+        new Thread(){
             @Override
-            public void run() {
+            public void run(){
                 GameEngineImpl _engine;
                 if(engine instanceof GameEngineImpl){
                     _engine = (GameEngineImpl) engine;
@@ -93,8 +106,7 @@ public class GameControllerImpl implements GameController{
                 }
                 engine.flip(DEFAULT_FLIP_DELAY, DEFAULT_COIN_DELAY);
             }
-        });
-        thread.run();
+        }.start();
     }
 
     @Override
@@ -104,20 +116,35 @@ public class GameControllerImpl implements GameController{
 
     @Override
     public void updateLastCoinFlip(Coin.Face coinFace) {
-        gameWindow.updateCoinOutcome(coinFace);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                gameWindow.updateCoinOutcome(coinFace);
+            }
+        });
     }
 
     @Override
     public void updateGameOutcome(Player player, GameEngine.GameStatus result) {
-        String gameResult = result.toString();
-        String betCoin = player.getFacePick().toString();
-        String betCredits = String.valueOf(bet.getPoints());
-        String updatedCredits = String.valueOf(player.getPoints());
-        gameWindow.updateGameResult(gameResult, betCoin, betCredits, updatedCredits);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                String gameResult = result.toString();
+                String betCoin = player.getFacePick().toString();
+                String betCredits = String.valueOf(bet.getPoints());
+                String updatedCredits = String.valueOf(player.getPoints());
+                gameWindow.updateGameResult(gameResult, betCoin, betCredits, updatedCredits);
+            }
+        });
     }
 
     public void updateCoinLabel(){
-        gameWindow.swapCoinFace();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                gameWindow.swapCoinFace();
+            }
+        });
     }
 
     @Override

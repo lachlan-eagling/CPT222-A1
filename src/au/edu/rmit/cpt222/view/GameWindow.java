@@ -226,6 +226,7 @@ public class GameWindow{
     public void swapCoinFace(){
         String currentFace = coinLabel.getText();
         coinLabel.setText(currentFace.equalsIgnoreCase(LABEL_HEADS) ? LABEL_TAILS : LABEL_HEADS);
+        gameOutcomeContainer.repaint();
     }
 
     public Frame getWindowContentFrame(){
