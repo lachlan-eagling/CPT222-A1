@@ -12,11 +12,10 @@ public class GUIGameEngineCallbackImpl extends GameEngineCallbackImpl {
         super();
     }
 
-    //TODO: Change method implementations.
 
     @Override
     public void coinFlip(Coin.Face coinFace, GameEngine engine) {
-        //super.coinFlip(coinFace, engine);
+
         GameEngineImpl _engine = (GameEngineImpl) engine;
         _engine.getController().updateCoinLabel();
 
@@ -24,21 +23,18 @@ public class GUIGameEngineCallbackImpl extends GameEngineCallbackImpl {
 
     @Override
     public void coinFlipOutcome(int coinNumber, Coin.Face coinFace, GameEngine engine) {
-        //super.coinFlipOutcome(coinNumber, coinFace, engine);
+
         GameEngineImpl _engine = (GameEngineImpl) engine;
         _engine.getController().updateLastCoinFlip(coinNumber, coinFace);
+
     }
 
     @Override
     public void gameResult(Player player, GameEngine.GameStatus result, GameEngine engine) {
-        //super.gameResult(player, result, engine);
+
         GameEngineImpl _engine = (GameEngineImpl) engine;
         _engine.getController().updateGameOutcome(player, result);
-    }
-
-    public void clearResults() {
 
     }
-
 
 }
