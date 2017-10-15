@@ -35,7 +35,7 @@ public class GameWindow{
     private LayoutManager buttonLayout;
     private JButton placeBetButton;
     private JButton addPlayerButton;
-    private JButton spinCoinButton;
+    private JButton flipCoinButton;
 
     // Coin components
     private JLabel coinLabel;
@@ -132,11 +132,11 @@ public class GameWindow{
 
         placeBetButton = new JButton("Place Bet");
         addPlayerButton = new JButton("Add Player");
-        spinCoinButton = new JButton("Spin Coin");
+        flipCoinButton = new JButton("Flip Coins");
 
         buttonContainer.add(placeBetButton, BorderLayout.PAGE_END);
         buttonContainer.add(addPlayerButton, BorderLayout.PAGE_END);
-        buttonContainer.add(spinCoinButton, BorderLayout.PAGE_END);
+        buttonContainer.add(flipCoinButton, BorderLayout.PAGE_END);
 
         placeBetButton.addActionListener(new ActionListener() {
             @Override
@@ -152,10 +152,17 @@ public class GameWindow{
             }
         });
 
-        spinCoinButton.addActionListener(new ActionListener() {
+        flipCoinButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controller.spinCoin();
+            }
+        });
+
+        editPlayerMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.editPlayer();
             }
         });
     }

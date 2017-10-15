@@ -57,7 +57,9 @@ public class GameControllerImpl implements GameController{
 
     @Override
     public void editPlayer() {
-        // TODO: Implement editPlayer event handler.
+        String message = "Functionality yet to be implemented.";
+        String title = "Information";
+        JOptionPane.showMessageDialog(gameWindow.getWindowContentFrame(), message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
