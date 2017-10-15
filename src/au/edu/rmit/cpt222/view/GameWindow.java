@@ -46,6 +46,7 @@ public class GameWindow{
 
     private JLabel lineBreak;
     private JLabel lblLastCoinFlip;
+    private JLabel lastCoinFlip;
 
     private JLabel lblGameResult;
     private JLabel lblBetCoin;
@@ -179,6 +180,7 @@ public class GameWindow{
 
 
         lblLastCoinFlip = new JLabel("Last Coin Result: ");
+        lastCoinFlip = new JLabel("");
 
         lblGameResult = new JLabel("Result: ");
         lblBetCoin = new JLabel("Bet Coin: ");
@@ -213,6 +215,7 @@ public class GameWindow{
 
 
         gameOutcomeContainer.add(lblLastCoinFlip);
+        gameOutcomeContainer.add(lastCoinFlip);
     }
 
     public void displayWindow(){
@@ -238,8 +241,7 @@ public class GameWindow{
     }
 
     public void updateCoinOutcome(Coin.Face face){
-        String newText = lblLastCoinFlip.getText() + face.toString();
-        lblLastCoinFlip.setText(newText);
+        lastCoinFlip.setText(face.toString());
     }
 
 }
