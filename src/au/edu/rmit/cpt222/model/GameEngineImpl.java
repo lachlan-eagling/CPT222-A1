@@ -72,6 +72,7 @@ public class GameEngineImpl implements GameEngine, GameHistory{
             int coinsToFlip = coins == 0 ? NUM_OF_COINS : coins;
             int wins = 0;
 
+            System.out.println(coinsToFlip);
             while(coinsToFlip > 0){
 
                 CoinImpl coin = new CoinImpl(Coin.Face.heads);
@@ -188,5 +189,9 @@ public class GameEngineImpl implements GameEngine, GameHistory{
     @Override
     public Collection<Game> getAllGames() {
         return gameHistory;
+    }
+
+    public void setNumOfCoins(int coins){
+        this.coins = coins;
     }
 }

@@ -83,6 +83,11 @@ public class GameControllerImpl implements GameController{
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                GameEngineImpl _engine;
+                if(engine instanceof GameEngineImpl){
+                    _engine = (GameEngineImpl) engine;
+                    _engine.setNumOfCoins(bet.getCoinsToFlip());
+                }
                 engine.flip(DEFAULT_FLIP_DELAY, DEFAULT_COIN_DELAY);
             }
         });
