@@ -25,13 +25,13 @@ public class SimplePlayer implements Player{
 
     @Override
     public int getBet() {
-        return currentBet.points;
+        return currentBet.getPoints();
     }
 
 
     @Override
     public Coin.Face getFacePick() {
-        return currentBet.face;
+        return currentBet.getFace();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SimplePlayer implements Player{
 
     @Override
     public GameEngine.GameStatus getResult() {
-        return currentBet.result;
+        return currentBet.getResult();
     }
 
     @Override
@@ -77,7 +77,7 @@ public class SimplePlayer implements Player{
 
     @Override
     public void setResult(GameEngine.GameStatus status) {
-        this.currentBet.result = status;
+        this.currentBet.setResult(status);
     }
 }
 

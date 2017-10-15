@@ -6,16 +6,16 @@ import au.edu.rmit.cpt222.model.interfaces.GameEngine;
 
 public class Bet{
 
-    Coin.Face face;
-    int points;
-    int coinsToFlip;
-    GameEngine.GameStatus result;
+    private Coin.Face face;
+    private int points;
+    private int coinsToFlip;
+    private GameEngine.GameStatus result;
 
     public Bet(){
-        // Set default values.
-        //this.face = Coin.Face.heads;
+
         this.points = 0;
-        this.result = GameEngine.GameStatus.LOST;
+        this.result = null;
+
     }
 
     public Bet(Coin.Face face, int points){
@@ -47,5 +47,21 @@ public class Bet{
 
     public GameEngine.GameStatus getResult() {
         return result;
+    }
+
+    public void setFace(Coin.Face face) {
+        this.face = face;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void setCoinsToFlip(int coinsToFlip) {
+        this.coinsToFlip = coinsToFlip;
+    }
+
+    public void setResult(GameEngine.GameStatus result) {
+        this.result = result;
     }
 }
