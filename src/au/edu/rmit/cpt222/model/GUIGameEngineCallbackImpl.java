@@ -26,7 +26,7 @@ public class GUIGameEngineCallbackImpl extends GameEngineCallbackImpl {
     public void coinFlipOutcome(int coinNumber, Coin.Face coinFace, GameEngine engine) {
         //super.coinFlipOutcome(coinNumber, coinFace, engine);
         GameEngineImpl _engine = (GameEngineImpl) engine;
-        _engine.getController().updateLastCoinFlip(coinFace);
+        _engine.getController().updateLastCoinFlip(coinNumber, coinFace);
     }
 
     @Override

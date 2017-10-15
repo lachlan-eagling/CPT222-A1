@@ -241,8 +241,9 @@ public class GameWindow{
         gameOutcomeContainer.repaint();
     }
 
-    public void updateCoinOutcome(Coin.Face face){
-        lastCoinFlip.setText(face.toString());
+    public void updateCoinOutcome(int coinNumber, Coin.Face face){
+        String out = String.format("%s (Coin: %d)", face.toString(), coinNumber);
+        lastCoinFlip.setText(out);
     }
 
 }

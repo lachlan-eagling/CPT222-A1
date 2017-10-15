@@ -115,11 +115,11 @@ public class GameControllerImpl implements GameController{
     }
 
     @Override
-    public void updateLastCoinFlip(Coin.Face coinFace) {
+    public void updateLastCoinFlip(int coinNumber, Coin.Face coinFace) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                gameWindow.updateCoinOutcome(coinFace);
+                gameWindow.updateCoinOutcome(coinNumber, coinFace);
             }
         });
     }

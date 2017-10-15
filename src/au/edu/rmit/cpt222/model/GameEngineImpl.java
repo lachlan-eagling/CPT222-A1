@@ -17,6 +17,7 @@ public class GameEngineImpl implements GameEngine, GameHistory{
     private List<Player> players = new ArrayList<>();
     private Player currentPlayer;
     private GameController controller;
+    private List<BetOutcome> results = new ArrayList<>();
 
     Collection<Game> gameHistory = new ArrayList<>();
 
@@ -43,7 +44,28 @@ public class GameEngineImpl implements GameEngine, GameHistory{
 
     @Override
     public void calculateResult() {
-        switch(currentPlayer.getResult()){
+        int numberOfFlips = results.size();
+        int numberOfWins = 0;
+        int numberOfLoss = 0;
+        GameStatus finalOutcome;
+
+        for(BetOutcome result : results){
+            if (result.getResult().equals(GameStatus.WON)){
+                numberOfWins++;
+            }else{
+                numberOfLoss++;
+            }
+        }
+
+        if(numberOfWins > numberOfLoss){
+            finalOutcome = GameStatus.WON;
+        } else if(numberOfWins < numberOfLoss){
+            finalOutcome = GameStatus.LOST;
+        } else{
+            finalOutcome = GameStatus.DREW;
+        }
+
+        switch(finalOutcome){
             case WON:
                 currentPlayer.setPoints(currentPlayer.getPoints() + currentPlayer.getBet());
                 break;
@@ -53,8 +75,8 @@ public class GameEngineImpl implements GameEngine, GameHistory{
             case DREW:
                 break;
         }
-
-        gameEngineCallback.gameResult(currentPlayer, currentPlayer.getResult(), this);
+        addGameToHistory(new Game(currentPlayer, currentPlayer.getFacePick(), currentPlayer.getBet(), finalOutcome));
+        gameEngineCallback.gameResult(currentPlayer, finalOutcome, this);
     }
 
     @Override
@@ -77,6 +99,7 @@ public class GameEngineImpl implements GameEngine, GameHistory{
 
                 CoinImpl coin = new CoinImpl(getRandomCoinFace());
                 int currentCoin = (coins == 0 ? NUM_OF_COINS : coins) - coinsToFlip;
+                GameEngine.GameStatus result;
 
                 // Generate random number of times to flip current coin.
                 int flips = (int) (Math.random() * 15);
@@ -93,7 +116,10 @@ public class GameEngineImpl implements GameEngine, GameHistory{
 //                System.out.println("CHECKPOINT...");
 
                 if(coin.getCurrentFace().equals(betFace)){
+                    result = GameStatus.WON;
                     wins++;
+                } else{
+                    result = GameStatus.LOST;
                 }
 
                 coinsToFlip--;
@@ -104,19 +130,22 @@ public class GameEngineImpl implements GameEngine, GameHistory{
                     e.printStackTrace();
                 }
 
-                gameEngineCallback.coinFlipOutcome(currentCoin, coin.getCurrentFace(), this);
+                results.add(new BetOutcome(result));
+                gameEngineCallback.coinFlipOutcome(currentCoin + 1, coin.getCurrentFace(), this);
 
             }
 
-            if(wins > coinsToFlip){
-                player.setResult(GameStatus.WON);
-            } else if(wins < coinsToFlip){
-                player.setResult(GameStatus.LOST);
-            } else{
-                player.setResult(GameStatus.DREW);
-            }
+//            if(wins > coinsToFlip / 2){
+//                player.setResult(GameStatus.WON);
+//            } else if(wins < coinsToFlip / 2){
+//                player.setResult(GameStatus.LOST);
+//            } else{
+//                player.setResult(GameStatus.DREW);
+//            }
 
-            addGameToHistory(new Game(player, betFace, player.getBet(), player.getResult()));
+            wins = 0;
+            // TODO: Move add to history into calcultateResult method.
+
             calculateResult();
 
         }
@@ -198,5 +227,16 @@ public class GameEngineImpl implements GameEngine, GameHistory{
     private Coin.Face getRandomCoinFace(){
         int rand = new Random().nextInt(Coin.Face.values().length);
         return Coin.Face.values()[rand];
+    }
+}
+class BetOutcome{
+    private GameEngine.GameStatus result;
+
+    BetOutcome(GameEngine.GameStatus result){
+        this.result = result;
+    }
+
+    public GameEngine.GameStatus getResult() {
+        return result;
     }
 }
