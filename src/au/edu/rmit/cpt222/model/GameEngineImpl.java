@@ -75,7 +75,7 @@ public class GameEngineImpl implements GameEngine, GameHistory{
             System.out.println(coinsToFlip);
             while(coinsToFlip > 0){
 
-                CoinImpl coin = new CoinImpl(Coin.Face.heads);
+                CoinImpl coin = new CoinImpl(getRandomCoinFace());
                 int currentCoin = (coins == 0 ? NUM_OF_COINS : coins) - coinsToFlip;
 
                 // Generate random number of times to flip current coin.
@@ -193,5 +193,10 @@ public class GameEngineImpl implements GameEngine, GameHistory{
 
     public void setNumOfCoins(int coins){
         this.coins = coins;
+    }
+
+    private Coin.Face getRandomCoinFace(){
+        int rand = new Random().nextInt(Coin.Face.values().length);
+        return Coin.Face.values()[rand];
     }
 }
