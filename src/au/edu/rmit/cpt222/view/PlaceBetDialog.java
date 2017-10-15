@@ -40,6 +40,7 @@ public class PlaceBetDialog extends JDialog{
         tailsRadioButton = new JRadioButton();
         coinButtonGroup.add(headsRadioButton);;
         coinButtonGroup.add(tailsRadioButton);
+        headsRadioButton.setSelected(true);
 
         lblCoinFaceHeads = new JLabel("Heads ");
         constraints.gridx = 0;
