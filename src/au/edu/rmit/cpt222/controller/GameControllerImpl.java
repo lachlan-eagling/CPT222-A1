@@ -12,23 +12,22 @@ import au.edu.rmit.cpt222.view.GameWindow;
 import au.edu.rmit.cpt222.view.PlaceBetDialog;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GameControllerImpl implements GameController{
 
     private GameWindow gameWindow;
     private GameEngine engine;
-    private static GameController controller;
     private Player player;
 
     private Bet bet;
 
-    public final static int DEFAULT_FLIP_DELAY = 300;
-    public final static int DEFAULT_COIN_DELAY = 500;
+    private final static int DEFAULT_FLIP_DELAY = 300;
+    private final static int DEFAULT_COIN_DELAY = 500;
 
-    public GameControllerImpl(){
+    private GameControllerImpl(){
+
+        // Add GameEngine and GameEngineCallback
         this.engine = new GameEngineImpl();
         engine.addGameEngineCallback(new GUIGameEngineCallbackImpl());
         GameEngineImpl _engine = (GameEngineImpl) engine;
@@ -36,14 +35,19 @@ public class GameControllerImpl implements GameController{
 
         gameWindow = new GameWindow(this);
         gameWindow.displayWindow();
+
     }
 
     public static void main(String[] args) {
+
+        // Initialise and start game window.
         new GameControllerImpl();
+
     }
 
     @Override
     public Player addPlayer() {
+
         AddPlayerDialog addPlayerDialog = new AddPlayerDialog(gameWindow.getWindowContentFrame());
         addPlayerDialog.setVisible(true);
         Player _player = addPlayerDialog.getAddPlayerResult();
@@ -53,20 +57,28 @@ public class GameControllerImpl implements GameController{
             return _player;
         }
         return null;
+
     }
 
     @Override
     public void editPlayer() {
+
         String message = "Functionality yet to be implemented.";
         String title = "Information";
-        JOptionPane.showMessageDialog(gameWindow.getWindowContentFrame(), message, title, JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(gameWindow.getWindowContentFrame(),
+                message, title,
+                JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     @Override
     public void addBet() {
+
         PlaceBetDialog placeBetDialog = new PlaceBetDialog(gameWindow.getWindowContentFrame());;
         if(player != null){
             placeBetDialog.setVisible(true);
+
+            // Result from placeBetDialog can be null if cancel is pressed.
             if(placeBetDialog.getNewBetResult() != null){
                 bet = placeBetDialog.getNewBetResult();
                 try{
@@ -77,6 +89,7 @@ public class GameControllerImpl implements GameController{
             }
 
         } else{
+            // If no players cannot add a bet.
             displayError(new IllegalStateException("No players added, please add a player first."));
         }
 
@@ -84,19 +97,6 @@ public class GameControllerImpl implements GameController{
 
     @Override
     public void spinCoin() {
-//        // TODO: Implement spinCoin eventHandler.
-//        Thread thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                GameEngineImpl _engine;
-//                if(engine instanceof GameEngineImpl){
-//                    _engine = (GameEngineImpl) engine;
-//                    _engine.setNumOfCoins(bet.getCoinsToFlip());
-//                }
-//                engine.flip(DEFAULT_FLIP_DELAY, DEFAULT_COIN_DELAY);
-//            }
-//        });
-//        thread.run();
 
         new Thread(){
             @Override
@@ -109,25 +109,24 @@ public class GameControllerImpl implements GameController{
                 engine.flip(DEFAULT_FLIP_DELAY, DEFAULT_COIN_DELAY);
             }
         }.start();
-    }
 
-    @Override
-    public void updatePlayer() {
-        // TODO: Implement method to update player details. This should update the current player details in UI.
     }
 
     @Override
     public void updateLastCoinFlip(int coinNumber, Coin.Face coinFace) {
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 gameWindow.updateCoinOutcome(coinNumber, coinFace);
             }
         });
+
     }
 
     @Override
     public void updateGameOutcome(Player player, GameEngine.GameStatus result) {
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -138,19 +137,23 @@ public class GameControllerImpl implements GameController{
                 gameWindow.updateGameResult(gameResult, betCoin, betCredits, updatedCredits);
             }
         });
+
     }
 
     public void updateCoinLabel(){
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 gameWindow.swapCoinFace();
             }
         });
+
     }
 
     @Override
     public void showGameHistory() {
+
         ArrayList<Game> games = new ArrayList<>();
         if(engine instanceof GameHistory){
             GameHistory historyEngine = (GameHistory) engine;
@@ -163,12 +166,17 @@ public class GameControllerImpl implements GameController{
         for(Game game : games){
             System.out.println(game.toString());
         }
+
     }
 
     @Override
     public void displayError(Exception exception) {
+
+        // Get details of exception and display in message dialog.
         String error = exception.getMessage();
         String title = exception.getClass().getSimpleName();
         JOptionPane.showMessageDialog(gameWindow.getWindowContentFrame(), error, title, JOptionPane.ERROR_MESSAGE);
+
     }
+
 }
