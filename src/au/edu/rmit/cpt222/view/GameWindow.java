@@ -277,7 +277,7 @@ public class GameWindow{
         // Update intermediate flip outcomes to UI.
         String out = String.format("%s (Coin: %d)", face.toString(), coinNumber);
         lastCoinFlip.setText(out);
-        
+
     }
 
 }
