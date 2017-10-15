@@ -12,10 +12,6 @@ public class SimplePlayer implements Player{
     private int creditPoints;
     private Bet currentBet;
 
-    public SimplePlayer(){
-
-    }
-
     public SimplePlayer(String playerNumber, String name, int creditPoints){
         this.playerNumber = playerNumber;
         this.name = name;
