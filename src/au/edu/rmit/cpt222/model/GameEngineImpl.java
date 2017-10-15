@@ -17,23 +17,18 @@ public class GameEngineImpl implements GameEngine, GameHistory{
     private Player currentPlayer;
     private GameController controller;
     private List<BetOutcome> results = new ArrayList<>();
+    private Collection<Game> gameHistory = new ArrayList<>();
 
-    Collection<Game> gameHistory = new ArrayList<>();
 
+    public GameEngineImpl(int coins){ this.coins = coins; }
 
-    public GameEngineImpl(int coins){
-
-        //controller = new GameControllerImpl();
-        this.coins = coins;
-    }
-
-    public GameEngineImpl(){
-        //controller = new GameControllerImpl();
-    }
+    public GameEngineImpl(){ }
 
     @Override
     public void addGameEngineCallback(GameEngineCallback gameEngineCallback) {
+
         this.gameEngineCallback = gameEngineCallback;
+
     }
 
     @Override
@@ -43,11 +38,12 @@ public class GameEngineImpl implements GameEngine, GameHistory{
 
     @Override
     public void calculateResult() {
-        int numberOfFlips = results.size();
+
         int numberOfWins = 0;
         int numberOfLoss = 0;
         GameStatus finalOutcome;
 
+        // Check flip outcomes.
         for(BetOutcome result : results){
             if (result.getResult().equals(GameStatus.WON)){
                 numberOfWins++;
@@ -56,6 +52,7 @@ public class GameEngineImpl implements GameEngine, GameHistory{
             }
         }
 
+        // Check number of wins vs losses.
         if(numberOfWins > numberOfLoss){
             finalOutcome = GameStatus.WON;
         } else if(numberOfWins < numberOfLoss){
@@ -64,6 +61,7 @@ public class GameEngineImpl implements GameEngine, GameHistory{
             finalOutcome = GameStatus.DREW;
         }
 
+        // Apply points changes based on game outcome.
         switch(finalOutcome){
             case WON:
                 currentPlayer.setPoints(currentPlayer.getPoints() + currentPlayer.getBet());
@@ -74,6 +72,8 @@ public class GameEngineImpl implements GameEngine, GameHistory{
             case DREW:
                 break;
         }
+
+        // Add game to history and update UI.
         addGameToHistory(new Game(currentPlayer, currentPlayer.getFacePick(), currentPlayer.getBet(), finalOutcome));
         gameEngineCallback.gameResult(currentPlayer, finalOutcome, this);
     }
@@ -81,68 +81,62 @@ public class GameEngineImpl implements GameEngine, GameHistory{
     @Override
     public void flip(int flipDelay, int coinDelay) {
 
-
-
-        // Loop over players.
         for(Player player : players){
+
             currentPlayer = player;
             Coin.Face betFace = player.getFacePick();
 
             // Get copy of number of coins so can keep reference of original number.
             int coinsToFlip = coins == 0 ? NUM_OF_COINS : coins;
-            int wins = 0;
 
-            System.out.println(coinsToFlip);
             while(coinsToFlip > 0){
 
+                // Initialise coin and calculate current coin number.
                 CoinImpl coin = new CoinImpl(getRandomCoinFace());
                 int currentCoin = (coins == 0 ? NUM_OF_COINS : coins) - coinsToFlip;
+
+                // Store flip result here.
                 GameEngine.GameStatus result;
 
                 // Generate random number of times to flip current coin.
                 int flips = (int) (Math.random() * 15);
 
+                // Perform coin "flips".
                 for(int i = 0; i < flips - 1; i++){
+
                     try{
                         Thread.sleep(flipDelay);
                     } catch(InterruptedException e){
                         e.printStackTrace();
                     }
+
+                    // Swap current face and update UI.
                     coin.swapFace();
                     gameEngineCallback.coinFlip(coin.getCurrentFace(), this);
-                }
-//                System.out.println("CHECKPOINT...");
 
+                }
+
+                // Set flip result.
                 if(coin.getCurrentFace().equals(betFace)){
                     result = GameStatus.WON;
-                    wins++;
                 } else{
                     result = GameStatus.LOST;
                 }
 
                 coinsToFlip--;
 
+                // Pause flip execution between coins.
                 try{
                     Thread.sleep(coinDelay);
                 } catch(InterruptedException e){
                     e.printStackTrace();
                 }
 
+                // Add flip to overall game results and update UI.
                 results.add(new BetOutcome(result));
                 gameEngineCallback.coinFlipOutcome(currentCoin + 1, coin.getCurrentFace(), this);
 
             }
-
-//            if(wins > coinsToFlip / 2){
-//                player.setResult(GameStatus.WON);
-//            } else if(wins < coinsToFlip / 2){
-//                player.setResult(GameStatus.LOST);
-//            } else{
-//                player.setResult(GameStatus.DREW);
-//            }
-
-            wins = 0;
-            // TODO: Move add to history into calcultateResult method.
 
             calculateResult();
 
@@ -222,12 +216,16 @@ public class GameEngineImpl implements GameEngine, GameHistory{
         this.coins = coins;
     }
 
+    // Choose a random coin face.
     private Coin.Face getRandomCoinFace(){
         int rand = new Random().nextInt(Coin.Face.values().length);
         return Coin.Face.values()[rand];
     }
 }
+
+// Inner class to encapsulate coin flip result.
 class BetOutcome{
+
     private GameEngine.GameStatus result;
 
     BetOutcome(GameEngine.GameStatus result){
@@ -237,4 +235,5 @@ class BetOutcome{
     public GameEngine.GameStatus getResult() {
         return result;
     }
+
 }
