@@ -1,7 +1,7 @@
-# CPT222-A1
-Assignment 1 - Software Architecture Design &amp; Implementation
+# About
+Assignment for Software Architecture Design &amp; Implementation course
 
-This is the first assignment for CPT222 Software Architecture Design &amp; Implementation via RMIT University (Study Period 3 2017).
+This is the first assignment for CPT222 Software Architecture Design &amp; Implementation via RMIT University.
 
 The assignment involves implementing a simple coin flip betting game. This will be extended to implement networked multi-player functionality in assignment two.
 
